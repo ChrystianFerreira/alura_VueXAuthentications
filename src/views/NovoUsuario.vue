@@ -1,44 +1,51 @@
- <template>
+<template>
   <div class="container">
     <h1>Novo usuário</h1>
     <form @submit.prevent="enviarFormulario">
-      <div class="form-group">
+      <div class="form-roup">
         <label for="nome">Nome</label>
-        <input type="text" class="form-control" v-model="usuario.nome" />
+        <input v-model="usuario.nome" type="text" class="form-control" />
       </div>
-      <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="email" class="form-control" v-model="usuario.email" />
+      <div class="form-roup">
+        <label for="nome">E-Mail</label>
+        <input v-model="usuario.email" type="email" class="form-control" />
       </div>
-      <div class="form-group">
-        <label for="senha">Senha</label>
-        <input type="password" class="form-control" v-model="usuario.senha" />
+      <div class="form-roup">
+        <label for="nome">Senha</label>
+        <input v-model="usuario.senha" type="password" class="form-control" />
       </div>
       <button class="btn btn-primary" type="submit">Salvar</button>
     </form>
   </div>
 </template>
- 
- <script>
-import axios from "axios";
+
+<script>
 
 export default {
-  data: function() {
+  
+  data() {
     return {
       usuario: {
-        nome: "",
-        senha: "",
-        email: ""
+        nome: '',
+        senha: '',
+        email: ''
       }
-    };
+    }
   },
   methods: {
     enviarFormulario() {
-      axios
-        .post("http://localhost:8000/auth/register", this.usuario)
-        .then(resposta => console.log(resposta))
-        .catch(erro => console.log(erro))
+      this.$http.post('auth/register', this.usuario)
+        .then(response => {
+          console.log(response)
+          this.$router.push({name: 'login'})
+        })
+        .catch(error => console.log(error))
     }
   }
-};
+
+}
 </script>
+
+<style>
+
+</style>
